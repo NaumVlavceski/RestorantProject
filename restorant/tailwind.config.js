@@ -5,6 +5,7 @@ export default {
         extend: {
             backgroundImage: {
                 'menu-bg': "url('public/menu-bg-small.jpg')",
+                'order-bg': "url('public/order-bg-small.jpg')",
             }
         }
     },

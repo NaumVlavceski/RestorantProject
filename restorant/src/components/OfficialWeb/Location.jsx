@@ -1,11 +1,11 @@
 import {MapPin, Phone, Mail, Clock} from 'lucide-react';
 
-const Location = () => {
+const Location = ({t}) => {
 
     return (
         <section id="location" className="py-20 ">
             <div className="text-center py-10 ">
-            <div className="text-5xl font-bold">Location</div>
+            <div className="text-5xl font-bold">{t.location}</div>
             <div
                 className="w-20 h-2 flex mx-auto my-3 bg-linear-to-r from-yellow-500 to-orange-500 rounded-full"></div>
         </div>

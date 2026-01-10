@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
+import apiFetch from "../api/api.js";
 
 const useCategories = ()=>{
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/categories/")
-            .then(res => res.json())
+        apiFetch(`/categories/`)
+            // .then(res => res.json())
             .then(data => {
                 setCategories(data)
             })

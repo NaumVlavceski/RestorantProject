@@ -8,27 +8,18 @@ import Location from "./Location.jsx";
 import Contact from "./Contact.jsx";
 import useCategories from "../../hooks/useCategories.js";
 import useMealsFromCategory from "../../hooks/useMealsFromCategory.js";
+import {useLanguage} from "../LanguageContext.jsx";
 
 function OfficialWeb() {
-    // const [categories, setCategories] = useState([]);
-    // const [meals, setMeals] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState(7);
+    const [selectedCategory, setSelectedCategory] = useState(1);
     const categories = useCategories()
     const meals = useMealsFromCategory(selectedCategory);
-    // useEffect(() => {
-    //     fetch(`http://127.0.0.1:8000/meals/${selectedCategory}/`)
-    //         .then(res => res.json())
-    //         .then(meals => setMeals(meals));
-    //     fetch("http://127.0.0.1:8000/categories/")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setCategories(data)
-    //         })
-    // }, [selectedCategory]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-    console.log("Selected:", selectedCategory);
-    console.log("Meals:", meals);
+    const { l, setL, t } = useLanguage();
+    useEffect(() => {
+        document.title = "Restorant Page"
+    }, []);
     return (
         <div>
             <main className="font-['Lora'] text-4xl">
@@ -40,12 +31,19 @@ function OfficialWeb() {
                 >
                     {isMenuOpen ? <X size={24}/> : <Menu size={24}/>}
                 </button>
-                <Navigation isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}/>
-                <Hero/>
-                <AboutUs/>
-                <MenuBook categories={categories} meals={meals} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
-                <Location/>
-                <Contact/>
+                <button
+                    onClick={()=>setL(l==='mk' ? 'en' : 'mk')}
+                    className="cursor-pointer absolute top-3 left-3 z-50
+                text-white rounded-2xl shadow-2xl transition-colors"
+                >
+                    <img src={`/public/flag_${l==='mk'? 'en' : 'mk'}.png`} className="w-10 h-10"/>
+                </button>
+                <Navigation t={t} isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}/>
+                <Hero t={t}/>
+                <AboutUs t={t}/>
+                <MenuBook t={t} l={l} categories={categories} meals={meals} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
+                <Location t={t}/>
+                <Contact t={t}/>
             </main>
         </div>
 

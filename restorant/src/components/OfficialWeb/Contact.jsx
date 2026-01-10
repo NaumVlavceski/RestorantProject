@@ -1,29 +1,31 @@
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
-const Contact = () => {
+const Contact = ({t}) => {
     const contactInfo = [
         {
             icon: MapPin,
-            title: 'Address',
+            title: t.address,
             details: '123 Italian Street, Downtown',
         },
         {
             icon: Phone,
-            title: 'Phone',
+            title: t.phone,
             details: '+1 (555) 123-4567',
         },
         {
             icon: Mail,
-            title: 'Email',
+            title: t.email,
             details: 'info@bellacucina.com',
         },
     ];
-
+    // const {t,toggleLanguage} = useLanguage()
     return (
         <section id="contact" className="py-24 px-6 bg-slate-900 text-white">
+
+
             <div className="max-w-6xl mx-auto">
                 <h2 className="text-5xl font-bold text-center mb-6">
-                    Contact
+                    {t.contact}
                 </h2>
                 <div
                     className="w-20 h-2 flex mx-auto my-3 mb-8 bg-linear-to-r from-yellow-500 to-orange-500 rounded-full"></div>
@@ -35,7 +37,7 @@ const Contact = () => {
                                 <info.icon size={32} />
                             </div>
                             <h3 className="text-xl font-semibold mb-2">{info.title}</h3>
-                            <p className="text-gray-300">{info.details}</p>
+                            <p className="text-gray-300 ">{info.details}</p>
                         </div>
                     ))}
                 </div>
