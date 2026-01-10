@@ -42,8 +42,8 @@
 // };
 
 // export default apiFetch;
-
-const BASE_URL = "http://192.168.0.103:8000";
+const API = import.meta.env.VITE_API_URL;
+const BASE_URL = API;
 
 const apiFetch = async (endpoint, options = {}) => {
     const url = `${BASE_URL}${endpoint}`;
