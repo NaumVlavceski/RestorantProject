@@ -402,6 +402,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             user.add_to_class('is_superuser', True)
+            user.add_to_class('is_staff', True)
             return Response(
                 {"success": True, "message": "User created", "id": user.id},
             )
