@@ -74,8 +74,8 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://192.168.1.9:5173",
-    "http://192.168.0.103:5173"
-    "https://*.onrender.com",
+    "http://192.168.0.103:5173",
+    "https://restorantproject.onrender.com",
     "https://restorantproject.netlify.app",
 ]
 SESSION_COOKIE_SAMESITE = "None"
@@ -85,7 +85,7 @@ CSRF_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SECURE = True
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = not DEBUG
 
 ROOT_URLCONF = 'Restorant.urls'
 
@@ -148,8 +148,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
