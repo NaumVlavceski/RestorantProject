@@ -400,11 +400,11 @@ def register(request):
         data = request.data.copy()
         form = UserCreationForm(data)
         if form.is_valid():
-            user = form.save()
-            user.add_to_class('is_superuser', True)
-            user.add_to_class('is_staff', True)
+            user = form.save(commit=False)
             user.is_staff = True
             user.is_superuser = True
+
+            user.save()
             return Response(
                 {"success": True, "message": "User created", "id": user.id},
             )
