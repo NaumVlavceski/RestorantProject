@@ -67,6 +67,7 @@ const Login = () => {
             //     console.log('Login successful', response.data);
             //     navigate('/user');  // Префрлање на /user
             // }
+            console.log("DATA",data)
             if (data.success) {
                 navigate('/user');
             }

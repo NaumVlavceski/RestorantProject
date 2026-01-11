@@ -42,9 +42,8 @@
 // };
 
 // export default apiFetch;
-const API = import.meta.env.VITE_API_URL;
-console.log("APII ",API)
-const BASE_URL = API;
+const BASE_URL = import.meta.env.VITE_API_URL;
+console.log("API",BASE_URL)
 
 const apiFetch = async (endpoint, options = {}) => {
     const url = `${BASE_URL}${endpoint}`;
@@ -84,7 +83,6 @@ const apiFetch = async (endpoint, options = {}) => {
                 : (data?.errors || data?.detail || `API error: ${res.status}`);
         throw new Error(msg);
     }
-    console.log("DATA",data)
 
     return data;
 };

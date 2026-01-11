@@ -26,7 +26,7 @@ ENV = os.environ.get("ENV", "local")  # local или production
 IS_PROD = ENV == "production"
 
 DEBUG = os.environ.get("DEBUG", "False") == "True" and not IS_PROD
-
+print(DEBUG)
 # DEBUG = True
 # ALLOWED_HOSTS = [
 #     "localhost",

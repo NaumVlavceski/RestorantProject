@@ -5,7 +5,7 @@ import {
     TableCellsIcon,
     ClipboardDocumentListIcon,
     Cog6ToothIcon,
-    ArrowRightOnRectangleIcon
+    ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 import apiFetch from "../../api/api.js";
 
@@ -19,7 +19,6 @@ const UserPage = () => {
         document.title = "Welcome"
         apiFetch("/check-auth/", {
             credentials: "include",
-
         })
             // .then((res) => res.json())
             .then((data) => {
