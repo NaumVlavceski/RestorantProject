@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,10 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
+ENV = os.environ.get("ENV", "local")  # local или production
+IS_PROD = ENV == "production"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG", "False") == "True" and not IS_PROD
 
+# DEBUG = True
 # ALLOWED_HOSTS = [
 #     "localhost",
 #     "127.0.0.1",
@@ -65,28 +68,52 @@ MIDDLEWARE = [
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "http://192.168.1.9:5173",
-    "http://192.168.0.103:5173",
-    "https://restorantproject.netlify.app",
+    "http://127.0.0.1:5173",
 ]
+if IS_PROD:
+    CORS_ALLOWED_ORIGINS += [
+        "https://restorantproject.netlify.app",
+    ]
+else:
+    CORS_ALLOWED_ORIGINS += [
+        "http://192.168.1.9:5173",
+        "http://192.168.0.103:5173",
+    ]
+
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
-    "http://192.168.1.9:5173",
-    "http://192.168.0.103:5173",
-    "https://restorantproject-1.onrender.com",
-    "https://*.onrender.com",
-    "https://restorantproject.netlify.app",
+    "http://127.0.0.1:5173",
 ]
-SESSION_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SAMESITE = "None"
-CSRF_COOKIE_SECURE = True
+if IS_PROD:
+    CSRF_TRUSTED_ORIGINS += [
+        "https://restorantproject-1.onrender.com",
+        "https://*.onrender.com",
+        "https://restorantproject.netlify.app",
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS += [
+        "http://192.168.1.9:5173",
+        "http://192.168.0.103:5173",
+    ]
+if IS_PROD:
+    SESSION_COOKIE_SAMESITE = "None"
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = "None"
+    CSRF_COOKIE_SECURE = True
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = not DEBUG
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+else:
+    # local dev
+    SESSION_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SAMESITE = "Lax"
+    CSRF_COOKIE_SECURE = False
 
+    SECURE_SSL_REDIRECT = False
+# SECURE_SSL_REDIRECT = False
 ROOT_URLCONF = 'Restorant.urls'
 
 TEMPLATES = [
@@ -111,10 +138,11 @@ WSGI_APPLICATION = 'Restorant.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=False,  # ќе го смениме на True кога ќе имаш Postgres во production
+    )
 }
 
 # Password validation
