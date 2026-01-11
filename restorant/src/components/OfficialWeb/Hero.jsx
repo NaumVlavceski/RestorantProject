@@ -6,7 +6,7 @@ export default function Hero({t}) {
     return (
         <section id={'home'} className="relative w-full h-screen overflow-hidde">
             <video className="absolute top-0 left-0 w-full h-full object-cover"
-                   src="../../../public/RestorantPromo.mp4"
+                   src="/RestorantPromo.mp4"
                    autoPlay
                    loop
                    muted

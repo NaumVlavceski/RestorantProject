@@ -36,7 +36,7 @@ function OfficialWeb() {
                     className="cursor-pointer absolute top-3 left-3 z-50
                 text-white rounded-2xl shadow-2xl transition-colors"
                 >
-                    <img src={`/public/flag_${l==='mk'? 'en' : 'mk'}.png`} className="w-10 h-10"/>
+                    <img src={`/flag_${l==='mk'? 'en' : 'mk'}.png`} alt="logo" className="w-10 h-10"/>
                 </button>
                 <Navigation t={t} isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}/>
                 <Hero t={t}/>

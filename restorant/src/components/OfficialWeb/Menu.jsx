@@ -24,7 +24,7 @@ const MenuBook = ({t,l,categories,meals,selectedCategory,setSelectedCategory}) =
                             <div
                                 className={`w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 ${selectedCategory === item.id ? 'border-yellow-500' : 'border-gray-700'} transition-colors mb-2`}>
                                 <img
-                                    src={"http://localhost:8000/media/" + item.photo}
+                                    src={"https://restorantproject-1.onrender.com/media/" + item.photo}
                                     alt={item.title}
                                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                                 />
@@ -70,7 +70,7 @@ const MenuBook = ({t,l,categories,meals,selectedCategory,setSelectedCategory}) =
                                                 <div
                                                     className="w-24 h-24 md:w-50 md:h-50 rounded-xl overflow-hidden border-2   border-gray-600">
                                                     <img
-                                                        src={"http://localhost:8000/media/" + food.photo}
+                                                        src={"https://restorantproject-1.onrender.com/media/" + food.photo}
                                                         alt={food.title}
                                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                                                     />
