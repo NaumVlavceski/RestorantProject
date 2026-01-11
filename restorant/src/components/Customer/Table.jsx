@@ -89,7 +89,7 @@ function Table() {
                     className="cursor-pointer absolute top-2 left-2 z-50
                 text-white rounded-2xl shadow-2xl transition-colors"
                 >
-                    <img src={`/public/flag_${l==='mk'? 'en' : 'mk'}.png`}  className='w-10 h-10'/>
+                    <img src={`/flag_${l==='mk'? 'en' : 'mk'}.png`}  className='w-10 h-10'/>
                 </button>
                 <MenuBook
                     l={l}

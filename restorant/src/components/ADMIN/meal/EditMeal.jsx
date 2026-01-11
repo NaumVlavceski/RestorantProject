@@ -74,7 +74,7 @@ const EditMealForm = () => {
             // }
 
             if (data.success) {
-                navigate("/user/meals")
+                navigate("/admin/meals")
                 // Ресетирај го формуларот
             }
         } catch (err) {
@@ -95,7 +95,7 @@ const EditMealForm = () => {
                         <div className="flex items-center justify-between gap-3">
                             <button
                                 type="button"
-                                onClick={() => navigate("/user/meals")}
+                                onClick={() => navigate("/admin/meals")}
                                 className="shrink-0 p-2 hover:bg-gray-100 rounded-lg transition"
                             >
                                 <ArrowLeftIcon className="h-5 w-5 text-gray-600"/>

@@ -111,7 +111,7 @@ const AddMealForm = () => {
                         <div className="flex items-center justify-between gap-3">
                             <button
                                 type="button"
-                                onClick={() => navigate("/user/meals")}
+                                onClick={() => navigate("/admin/meals")}
                                 className="shrink-0 p-2 hover:bg-gray-100 rounded-lg transition"
                             >
                                 <ArrowLeftIcon className="h-5 w-5 text-gray-600" />

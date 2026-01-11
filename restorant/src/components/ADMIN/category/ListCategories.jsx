@@ -21,7 +21,7 @@ const ListCategories = () => {
             window.location.reload()
         } catch (err) {
             console.error(err);
-            alert("Could not remove user");
+            alert("Could not remove category");
         }
     };
     useEffect(() => {

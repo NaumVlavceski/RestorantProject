@@ -2,6 +2,7 @@ import useOrders from "../../../hooks/useOrders.js";
 import finishOrder from "../../../hooks/finishOrder.js";
 import { useEffect, useState, useRef } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import {useNavigate} from "react-router";
 
 function Orders() {
     const orders = useOrders();
@@ -9,7 +10,7 @@ function Orders() {
     const [checkedTables, setCheckedTables] = useState({});
     const [changedMeals, setChangedMeals] = useState({});
     const prevOrdersRef = useRef([]);
-
+    const navigate = useNavigate()
     useEffect(() => {
         document.title = "Orders"
         // ... (постоечки useEffect код останува ист) ...
@@ -135,7 +136,7 @@ function Orders() {
                         <div className="flex items-center justify-between gap-3">
                             <button
                                 type="button"
-                                onClick={() => window.history.back()}
+                                onClick={() => navigate("/user/")}
                                 className="shrink-0 p-2 hover:bg-gray-100 rounded-lg transition"
                             >
                                 <ArrowLeftIcon className="h-5 w-5 text-gray-600" />
