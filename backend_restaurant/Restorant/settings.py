@@ -24,9 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 ENV = os.environ.get("ENV", "local")  # local или production
 IS_PROD = ENV == "production"
-
 DEBUG = os.environ.get("DEBUG", "False") == "True" and not IS_PROD
-print(DEBUG)
 # DEBUG = True
 # ALLOWED_HOSTS = [
 #     "localhost",
@@ -141,7 +139,7 @@ DATABASES = {
     "default": dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
-        ssl_require=False,  # ќе го смениме на True кога ќе имаш Postgres во production
+        ssl_require=IS_PROD,  # ќе го смениме на True кога ќе имаш Postgres во production
     )
 }
 
