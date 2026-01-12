@@ -15,7 +15,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class MealSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(use_url=True,required=False)
+    photo = serializers.ImageField(use_url=True)
     class Meta:
         model = Meal
         fields = '__all__'

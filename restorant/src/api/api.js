@@ -83,7 +83,7 @@ const apiFetch = async (endpoint, options = {}) => {
                 : (data?.errors || data?.detail || `API error: ${res.status}`);
         throw new Error(msg);
     }
-
+    console.log(data)
     return data;
 };
 
