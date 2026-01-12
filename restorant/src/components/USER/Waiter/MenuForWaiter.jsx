@@ -450,12 +450,13 @@ const MenuForWaiter = ({
                                                 <h3 className="text-white text-lg md:text-xl font-bold">{food.titleMK}</h3>
                                                 <h4 className="text-gray-300 text-sm md:text-base italic">{food.title}</h4>
                                             </div>
+                                            <div className="text-white">{food.photo}</div>
 
                                             <div className="relative group">
                                                 <div
                                                     className="w-24 h-24 md:w-50 md:h-50 rounded-xl overflow-hidden border-2   border-gray-600">
                                                     <img
-                                                        src={"https://restorantproject-1.onrender.com/media/" + food.photo}
+                                                        src={"https://res.cloudinary.com/" + food.photo}
                                                         alt={food.title}
                                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                                                     />
