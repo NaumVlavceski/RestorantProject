@@ -404,12 +404,12 @@ const MenuBook = ({
                                     </td>
 
                                     {/* Цена */}
-                                    <td className="py-4 px-2 align-top">
-                                        <div className="space-y-1 w-10">
+                                    <td className="py-4 align-top">
+                                        <div className="space-y-1 justify-items-center">
 
-                                            <div className="text-yellow-400 font-bold text-xl md:text-2xl">
+                                            <div className="text-yellow-400 font-bold text-md md:text-2xl">
                                                 {/*{food.priceMK} ден*/}
-                                                {l==='mk'? <span>{food.priceMK} ден.</span> : <span>{food.price} €</span>}
+                                                {l==='mk'? <span>{food.priceMK}<span className="text-sm ml-1 mr-1">ден</span></span> : <span>{food.price}<span className="text-sm ml-1 mr-1">€</span></span>}
                                             </div>
 
                                             {/*{count > 0 && (*/}

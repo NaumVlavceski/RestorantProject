@@ -439,7 +439,7 @@ const MenuForWaiter = ({
                                     className={`border-t border-gray-700/50 transition-all duration-200 hover:bg-white/5 ${index % 2 === 0 ? 'bg-gray-900/30' : 'bg-gray-900/10'}`}
                                 >
                                     {/* Слика */}
-                                    <td className="py-4 px-3 align-top">
+                                    <td className="py-4 px-4 align-top">
 
                                         {/*</td>*/}
 
@@ -477,11 +477,11 @@ const MenuForWaiter = ({
                                     </td>
 
                                     {/* Цена */}
-                                    <td className="py-4 px-2 align-top">
-                                        <div className="space-y-1 w-10">
+                                    <td className="py-4 align-top">
+                                        <div className="space-y-1 justify-items-center">
 
                                             <div
-                                                className="text-yellow-400 font-bold text-xl md:text-2xl">{food.priceMK} ден
+                                                className="text-yellow-400 font-bold text-md md:text-2xl">{food.priceMK}<span className="text-sm ml-1 mr-1">ден</span>
                                             </div>
                                             <div className="text-gray-400 text-sm md:text-base">{food.price} €</div>
 
