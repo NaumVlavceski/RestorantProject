@@ -90,7 +90,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 if IS_PROD:
     CORS_ALLOWED_ORIGINS += [
-        "https://restorantp.netlify.app/",
+        "https://restorantp.netlify.app",
     ]
 else:
     CORS_ALLOWED_ORIGINS += [
@@ -108,7 +108,7 @@ if IS_PROD:
     CSRF_TRUSTED_ORIGINS += [
         "https://restorantproject-1.onrender.com",
         "https://*.onrender.com",
-        "https://restorantp.netlify.app/",
+        "https://restorantp.netlify.app",
     ]
 else:
     CSRF_TRUSTED_ORIGINS += [
