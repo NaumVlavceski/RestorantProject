@@ -96,7 +96,7 @@ const ListCategories = () => {
                         </div>
                     ) : (
                         <ul className="space-y-3">
-                            {categories.map((item, index) => (
+                            {categories.map(item => (
                                 <li
                                     key={item.id}
                                     className="group bg-gradient-to-r from-white to-gray-50 hover:from-blue-50 hover:to-blue-50
@@ -106,7 +106,7 @@ const ListCategories = () => {
 
                                         <div className="flex items-center gap-3 min-w-0">
                                             <div className="shrink-0 w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
-                                                <span className="text-blue-600 font-semibold">{index + 1}</span>
+                                                <span className="text-blue-600 font-semibold">{item.id}</span>
                                             </div>
 
                                             <div className="min-w-0">

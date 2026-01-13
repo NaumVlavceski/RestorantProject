@@ -450,7 +450,6 @@ const MenuForWaiter = ({
                                                 <h3 className="text-white text-lg md:text-xl font-bold">{food.titleMK}</h3>
                                                 <h4 className="text-gray-300 text-sm md:text-base italic">{food.title}</h4>
                                             </div>
-                                            <div className="text-white">{food.photo}</div>
 
                                             <div className="relative group">
                                                 <div

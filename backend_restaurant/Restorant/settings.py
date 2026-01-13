@@ -29,8 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 ENV = os.environ.get("ENV", "local")  # local или production
 IS_PROD = ENV == "production"
-DEBUG = os.environ.get("DEBUG", "False") == "True" and not IS_PROD
-# DEBUG = True
+# DEBUG = os.environ.get("DEBUG", "False") == "True" and not IS_PROD
+DEBUG = True
 # ALLOWED_HOSTS = [
 #     "localhost",
 #     "127.0.0.1",
