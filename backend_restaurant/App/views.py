@@ -36,18 +36,30 @@ def csrf(request):
     return JsonResponse({"detail": "CSRF cookie set"})
 @api_view(['GET'])
 def get_categories(request):
-    categories = list(Category.objects.values())
-    return Response(categories.order_by('id'))
+    categories = Category.objects.all().order_by("id").values()
+    return Response(categories)
 
 
 @api_view(['GET'])
 def get_meals(request):
     query = request.GET.get('q', '')
+
     if query:
-        meals = Meal.objects.filter(titleMK__istartswith=query.capitalize()).values()
+        meals = (
+            Meal.objects
+            .filter(titleMK__istartswith=query.capitalize())
+            .order_by("id")
+            .values()
+        )
     else:
-        meals = list(Meal.objects.values())
-    return Response(meals.order_by('id'))
+        meals = (
+            Meal.objects
+            .all()
+            .order_by("id")
+            .values()
+        )
+
+    return Response(list(meals))
 
 
 @api_view(['GET'])
@@ -401,8 +413,8 @@ def register(request):
         form = UserCreationForm(data)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_staff = True
-            user.is_superuser = True
+            # user.is_staff = True
+            # user.is_superuser = True
 
             user.save()
             return Response(
