@@ -3,7 +3,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import AllowAny
@@ -438,6 +438,7 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 @parser_classes([JSONParser])
+@csrf_exempt
 def login_view(request):
     username = request.data.get('username')
     password = request.data.get('password')
