@@ -50,14 +50,16 @@ const Login = () => {
                     formDataToSend.append(key, value)
                 }
             }
-            const data = await apiFetch("/login/", {
+            const data = await apiFetch("/api/token/", {
                 method: "POST",
                 body: {
-                    username:formData.username,
-                    password:formData.password,
+                    username: formData.username,
+                    password: formData.password,
                 },
-                credentials: "include",
+                credentials: false, // cookies не требаат
             });
+            localStorage.setItem("access", data.access);
+            localStorage.setItem("refresh", data.refresh);
             // const response = await api.post('/login/', {
             //     username,
             //     password
@@ -67,10 +69,7 @@ const Login = () => {
             //     console.log('Login successful', response.data);
             //     navigate('/user');  // Префрлање на /user
             // }
-            console.log("DATA",data)
-            if (data.success) {
-                navigate('/user');
-            }
+            navigate("/user")
         } catch (err) {
             console.log("RESPONSE:")
             setError(err.response || 'Login failed');

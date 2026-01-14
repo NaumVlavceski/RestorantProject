@@ -7,6 +7,9 @@ const apiFetch = async (endpoint, options = {}) => {
     const headers = { ...(options.headers || {}) };
     const isFormData = options.body instanceof FormData;
 
+    const token = localStorage.getItem("access");
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+
     const expectResponse = options.expectResponse ? options.expectResponse : true
     let body = options.body;
     if (body && !isFormData && typeof body === "object" && !(body instanceof Blob)) {

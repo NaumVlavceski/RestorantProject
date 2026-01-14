@@ -7,6 +7,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 from rest_framework.response import Response
@@ -459,16 +460,19 @@ def login_view(request):
         "errors": "Invalid credentials"
     }, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
+@api_view(["POST"])
+# @permission_classes([IsAuthenticated])
 def logout_view(request):
-    django_logout(request)
-    return Response({
-        "success": True,
-        "message": "Logged out successfully"
-    })
+    try:
+        refresh_token = request.data.get("refresh")
+        token = RefreshToken(refresh_token)
+        token.blacklist()
+        return Response({"success": True})
+    except Exception:
+        return Response({"success": False}, status=400)
 
 @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
 def check_auth(request):
     return Response({
         "is_staff":request.user.is_staff,

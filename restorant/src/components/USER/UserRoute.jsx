@@ -7,7 +7,7 @@ const UserRoute = ({children})=>{
 
     useEffect(() => {
         apiFetch("/check-auth/", {
-            credentials: "include",
+            credentials: false,
         })
             .then(data => {
                 console.log("AUT",data)

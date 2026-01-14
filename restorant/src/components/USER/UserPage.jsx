@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {
     UserCircleIcon,
     TableCellsIcon,
@@ -37,16 +37,31 @@ const UserPage = () => {
             });
     }, [navigate]);
 
+    // const handleLogout = async () => {
+    //     // try {
+    //     //     await apiFetch("/logout/", {
+    //     //         credentials: "include",
+    //     //         // headers: { "Content-Type": "application/json" },
+    //     //     });
+    //     //     navigate("/login");
+    //     // } catch (error) {
+    //     //     console.error("Logout error:", error);
+    //     // }
+    //     localStorage.removeItem("access");
+    //     localStorage.removeItem("refresh");
+    //     navigate("/login");
+    // };
     const handleLogout = async () => {
         try {
             await apiFetch("/logout/", {
-                credentials: "include",
-                // headers: { "Content-Type": "application/json" },
+                method: "POST",
+                body: { refresh: localStorage.getItem("refresh") },
             });
-            navigate("/login");
-        } catch (error) {
-            console.error("Logout error:", error);
-        }
+        } catch (e) {}
+
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+        navigate("/login");
     };
 
     if (loading) {
@@ -64,7 +79,7 @@ const UserPage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center py-4">
                         <div className="flex items-center space-x-3">
-                            <UserCircleIcon className="h-8 w-8 text-blue-600" />
+                            <UserCircleIcon className="h-8 w-8 text-blue-600"/>
                             <div>
                                 <h1 className="text-xl font-semibold text-gray-900">Добредојдовте</h1>
                                 <p className="text-sm text-gray-600">{user}</p>
@@ -74,7 +89,7 @@ const UserPage = () => {
                             onClick={handleLogout}
                             className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition duration-200"
                         >
-                            <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                            <ArrowRightOnRectangleIcon className="h-5 w-5"/>
                             <span>Одјави се</span>
                         </button>
                     </div>
@@ -90,7 +105,7 @@ const UserPage = () => {
                     >
                         <div className="flex items-start justify-between">
                             <div className="p-3 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition duration-200">
-                                <TableCellsIcon className="h-8 w-8 text-blue-600" />
+                                <TableCellsIcon className="h-8 w-8 text-blue-600"/>
                             </div>
                             <span className="text-sm font-medium text-blue-600 group-hover:text-blue-700">→</span>
                         </div>
@@ -106,8 +121,9 @@ const UserPage = () => {
                         className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-green-300 transition duration-200 cursor-pointer group"
                     >
                         <div className="flex items-start justify-between">
-                            <div className="p-3 bg-green-50 rounded-lg group-hover:bg-green-100 transition duration-200">
-                                <ClipboardDocumentListIcon className="h-8 w-8 text-green-600" />
+                            <div
+                                className="p-3 bg-green-50 rounded-lg group-hover:bg-green-100 transition duration-200">
+                                <ClipboardDocumentListIcon className="h-8 w-8 text-green-600"/>
                             </div>
                             <span className="text-sm font-medium text-green-600 group-hover:text-green-700">→</span>
                         </div>
@@ -124,10 +140,12 @@ const UserPage = () => {
                             className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-purple-300 transition duration-200 cursor-pointer group"
                         >
                             <div className="flex items-start justify-between">
-                                <div className="p-3 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition duration-200">
-                                    <Cog6ToothIcon className="h-8 w-8 text-purple-600" />
+                                <div
+                                    className="p-3 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition duration-200">
+                                    <Cog6ToothIcon className="h-8 w-8 text-purple-600"/>
                                 </div>
-                                <span className="text-sm font-medium text-purple-600 group-hover:text-purple-700">→</span>
+                                <span
+                                    className="text-sm font-medium text-purple-600 group-hover:text-purple-700">→</span>
                             </div>
                             <h3 className="mt-4 text-lg font-semibold text-gray-900">Администрација</h3>
                             <p className="mt-2 text-sm text-gray-600">
