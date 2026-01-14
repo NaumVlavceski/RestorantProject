@@ -6,18 +6,15 @@ const UserRoute = ({children})=>{
     const [status, setStatus] = useState("loading");
 
     useEffect(() => {
-        apiFetch("/check-auth/", {
-            credentials: false,
-        })
+        apiFetch("/check-auth/", { credentials: "include" })
             .then(data => {
-                console.log("AUT",data)
-                if (data.is_authenticated) {
-                    setStatus("ok");
-                } else {
-                    setStatus("denied");
-                }
+                console.log("CHECK AUTH (frontend)", data);
+                setStatus(data.is_authenticated ? "ok" : "denied");
             })
-            .catch(() =>{ console.log("CHECK AUTH ERROR", err); setStatus("denied")});
+            .catch(err => {
+                console.log("CHECK AUTH ERROR", err);
+                setStatus("denied");
+            });
     }, []);
 
     if (status === "loading") return <div className="min-h-screen flex items-center justify-center bg-gray-50">

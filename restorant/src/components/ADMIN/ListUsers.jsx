@@ -24,7 +24,7 @@ const ListUsers = () => {
 
         try {
             await apiFetch(`/remove_user/${userId}/`,{
-                method:"GET",
+                method:"DELETE",
                 credentials:false,
             })
             setUsers(prev => prev.filter(u => u.id !== userId));
@@ -136,6 +136,7 @@ const ListUsers = () => {
                                                 Last login: {new Date(user.last_login).toLocaleDateString()}
                                             </span>
                                                 )}
+
                                             </div>
                                         </div>
                                     </div>

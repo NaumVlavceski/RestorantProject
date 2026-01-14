@@ -10,12 +10,11 @@ const ListMeals = () => {
     const meals = useMeals(query)
 
     const handleRemove = async (mealId) => {
-        const confirmDelete = window.confirm("Are you sure you want to remove this user?");
-        if (!confirmDelete) return;
+        if (!window.confirm("Are you sure you want to delete this meal?")) return;
 
         try {
             await apiFetch(`/removeMeal/${mealId}/`,{
-                method:"GET",
+                method:"DELETE",
             })
             window.location.reload()
         } catch (err) {

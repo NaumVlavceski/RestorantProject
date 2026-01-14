@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
-import cloudinary_storage
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary_storage
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
+from datetime import timedelta
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -79,6 +80,9 @@ REST_FRAMEWORK = {
     ),
 }
 SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
+    # "REFRESH_TOKEN_LIFETIME": timedelta(seconds=5),
+    "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
 }
 # STORAGES = {

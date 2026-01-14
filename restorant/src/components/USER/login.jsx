@@ -31,7 +31,7 @@ const Login = () => {
     useEffect(() => {
         document.title = "Login Page"
         apiFetch("/check-auth/", {
-            credentials: "include",
+            credentials: false,
         })
             .then((data) => {
                 if(data.is_authenticated){

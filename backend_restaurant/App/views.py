@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
@@ -286,6 +286,7 @@ def get_payment(request, table_id):
 
 @api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser, FormParser, JSONParser])
+@permission_classes([IsAdminUser])
 def add_meal_to_menu(request):
     if request.method == "POST":
         data = request.data.copy()
@@ -312,6 +313,7 @@ def add_meal_to_menu(request):
 
 @api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser, FormParser, JSONParser])
+@permission_classes([IsAdminUser])
 def edit_meal_to_menu(request,meal_id):
     meal = Meal.objects.get(id=meal_id)
     print(meal)
@@ -347,14 +349,23 @@ def edit_meal_to_menu(request,meal_id):
             "Category": meal.Category.id if meal.Category else None,
         }, status=200)
 
-@api_view(['GET'])
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
 def remove_meal_from_menu(request,meal_id):
-    Meal.objects.get(id=meal_id).delete()
-    return Response({"success": True}, status=200)
+    try:
+        meal = Meal.objects.get(id=meal_id)
+        meal.delete()
+        return Response({"success": True}, status=200)
+    except Meal.DoesNotExist:
+        return Response(
+            {"success": False, "error": "Meal not found"},
+            status=404
+        )
 
 
 @api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser, FormParser, JSONParser])
+@permission_classes([IsAdminUser])
 def add_category_to_menu(request):
     if request.method == "POST":
         data = request.data.copy()
@@ -378,6 +389,7 @@ def add_category_to_menu(request):
 
 @api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser, FormParser, JSONParser])
+@permission_classes([IsAdminUser])
 def edit_category_to_menu(request,category_id):
     category = Category.objects.get(id=category_id)
     if request.method == "POST":
@@ -404,16 +416,25 @@ def edit_category_to_menu(request,category_id):
             "photo":category.photo.url if category.photo else None,
         }, status=200)
 
-@api_view(['GET'])
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
 def remove_category_from_menu(request,category_id):
-    Category.objects.get(id=category_id).delete()
-    return Response({"success": True}, status=200)
+    try:
+        category = Category.objects.get(id=category_id)
+        category.delete()
+        return Response({"success": True}, status=200)
+    except Category.DoesNotExist:
+        return Response(
+            {"success": False, "error": "Category not found"},
+            status=404
+        )
 
 
 
 
 @api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser, FormParser, JSONParser])
+@permission_classes([IsAdminUser])
 def register(request):
     if request.method == "POST":
         data = request.data.copy()
@@ -436,32 +457,32 @@ def register(request):
         return Response({"fields": fields}, status=status.HTTP_200_OK)
 
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-@parser_classes([JSONParser])
-@csrf_exempt
-def login_view(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-
-    user = authenticate(username=username, password=password)
-
-    if user:
-        django_login(request, user)
-        request.session.save()
-
-        return Response({
-            "success": True,
-            "username": user.username,
-        })
-
-    return Response({
-        "success": False,
-        "errors": "Invalid credentials"
-    }, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# @parser_classes([JSONParser])
+# @csrf_exempt
+# def login_view(request):
+#     username = request.data.get('username')
+#     password = request.data.get('password')
+#
+#     user = authenticate(username=username, password=password)
+#
+#     if user:
+#         django_login(request, user)
+#         request.session.save()
+#
+#         return Response({
+#             "success": True,
+#             "username": user.username,
+#         })
+#
+#     return Response({
+#         "success": False,
+#         "errors": "Invalid credentials"
+#     }, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["POST"])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def logout_view(request):
     try:
         refresh_token = request.data.get("refresh")
@@ -484,13 +505,14 @@ def users(request):
     data = User.objects.all().values()
     return Response(list(data))
 
-@api_view(["GET"])
+@api_view(["DELETE"])
+@permission_classes([IsAdminUser])
 def remove_user(request, user_id):
     user = User.objects.filter(id=user_id)
-    if user:
+    if user.exists():
         user.delete()
         return Response({"success": True})
-    return Response({"success": False})
+    return Response({"success": False}, status=404)
 
 @api_view(["POST"])
 def checked_order(request, table_id):
