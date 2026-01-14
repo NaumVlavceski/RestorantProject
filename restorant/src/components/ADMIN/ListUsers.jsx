@@ -25,7 +25,7 @@ const ListUsers = () => {
         try {
             await apiFetch(`/remove_user/${userId}/`,{
                 method:"GET",
-                // credentials:"include",
+                credentials:false,
             })
             setUsers(prev => prev.filter(u => u.id !== userId));
         } catch (err) {
